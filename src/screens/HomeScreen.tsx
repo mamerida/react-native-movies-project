@@ -1,9 +1,12 @@
-import { View, Text, ActivityIndicator } from 'react-native'
+import { View, Text, ActivityIndicator, Dimensions } from 'react-native'
 import React from 'react'
 import useMovies from '../hooks/useMovies'
 import MoviePoster from '../components/MoviePoster';
-import { useSafeAreaFrame, useSafeAreaInsets } from 'react-native-safe-area-context';
+import Carousel from 'react-native-snap-carousel';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Movie } from '../interfaces/movieInterface';
 
+const {width : windowWidth} = Dimensions.get('screen');
 const HomeScreen = () => {
 
   const { moviesInCinema, isLoading } = useMovies();
@@ -16,7 +19,13 @@ const HomeScreen = () => {
      {isLoading ?
       <ActivityIndicator color="red" size={100}/>
       :
-      <MoviePoster movie={moviesInCinema[0]}/>
+      <Carousel
+        vertical={false}
+        data={moviesInCinema}
+        renderItem={(item: {item: Movie}) => <MoviePoster movie={item.item} />}
+        sliderWidth={windowWidth}
+        itemWidth={300}
+      />
     }
     </View>
   )
