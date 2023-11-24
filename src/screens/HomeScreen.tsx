@@ -1,12 +1,18 @@
-import { View, Text } from 'react-native'
-import {API_KEY} from "@env"
+import { View, Text, ActivityIndicator } from 'react-native'
 import React from 'react'
+import useMovies from '../hooks/useMovies'
 
 const HomeScreen = () => {
-    console.log("hil",API_KEY)
+
+  const { moviesInCinema, isLoading } = useMovies();
+  
   return (
     <View>
-      <Text>HomeScreen</Text>
+     {isLoading ?
+      <ActivityIndicator color="red" size={100}/>
+      :
+      <Text>Hola</Text> 
+    }
     </View>
   )
 }
