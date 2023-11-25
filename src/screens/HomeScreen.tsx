@@ -1,4 +1,4 @@
-import { View, Text, ActivityIndicator, Dimensions, FlatList, ScrollView } from 'react-native'
+import { View, ActivityIndicator, Dimensions, ScrollView } from 'react-native'
 import React from 'react'
 import useMovies from '../hooks/useMovies'
 import MoviePoster from '../components/MoviePoster';
@@ -10,7 +10,7 @@ import HorizontalScroll from '../components/HorizontalScroll';
 const {width : windowWidth} = Dimensions.get('screen');
 const HomeScreen = () => {
 
-  const { moviesInCinema, isLoading } = useMovies();
+  const { nowPlaying,popular,topRated, upcoming, isLoading } = useMovies();
   const { top } = useSafeAreaInsets();
   
   return (
@@ -23,15 +23,25 @@ const HomeScreen = () => {
       <ScrollView>
         <Carousel
           vertical={false}
-          data={moviesInCinema}
+          data={nowPlaying}
           renderItem={(item: {item: Movie}) => <MoviePoster movie={item.item} />}
           sliderWidth={windowWidth}
           itemWidth={300}
         />
         {/* popular movies */}
         <HorizontalScroll
-          movies={moviesInCinema}
+          movies={popular}
           title='Popular Movies'
+        />
+        {/* popular movies */}
+        <HorizontalScroll
+          movies={topRated}
+          title='Top Rated'
+        />
+        {/* popular movies */}
+        <HorizontalScroll
+          movies={upcoming}
+          title='Up Coming'
         />
       </ScrollView>
     }
