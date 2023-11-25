@@ -3,16 +3,19 @@ import React from 'react'
 import { Movie } from '../interfaces/movieInterface'
 
 interface Props {
-    movie: Movie;
+    movie: Movie,
+    height?:number,
+    width?:number
 }
 
-const MoviePoster = ({movie}:Props) => {
+const MoviePoster = ({movie, width = 300 ,height = 420}:Props) => {
     const uri = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
   return (
     <View 
         style={{
-            width:300,
-            height:420
+            width,
+            height,
+            marginHorizontal:8
         }}
     >
         <View style={style.imageContainer}>
