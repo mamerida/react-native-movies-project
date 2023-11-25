@@ -33,10 +33,6 @@ const HomeScreen = () => {
           movies={moviesInCinema}
           title='Popular Movies'
         />
-        <HorizontalScroll
-          movies={moviesInCinema}
-        />
-
       </ScrollView>
     }
     </View>
