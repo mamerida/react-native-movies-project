@@ -4,6 +4,9 @@ import { StackScreenProps } from '@react-navigation/stack'
 import { RootParamsNavigation } from '../navigation/Navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useMovieDetail } from '../hooks/useMovieDetails';
+import { ScrollView } from 'react-native-gesture-handler';
+import { ActivityIndicator } from 'react-native';
+import MovieDetail from '../components/MovieDetail';
 
 interface Props extends StackScreenProps<RootParamsNavigation, 'DetailScreen'>{
 
@@ -16,23 +19,19 @@ const DetailScreen = ({route}:Props) => {
   const { isLoading, movieFull, cast } = useMovieDetail(movie.id);
 
   return (
-    <View style={styles.imageContainer}>
-      <Image
-        source={{uri}}
-        style={styles.posterMovie}
-      />
-      <View style={styles.marginContainer}>
-        <Text style={styles.title}>{movie.title}</Text>
-        <Text style={styles.subTitle}>{movie.original_title}</Text>
-      </View>
-      <View style={styles.marginContainer}>
-        <Icon
-          name="star-outline"
-          color="black"
-          size={20}
+    <ScrollView>
+      <View style={styles.imageContainer}>
+        <Image
+          source={{uri}}
+          style={styles.posterMovie}
         />
+        <View style={styles.marginContainer}>
+          <Text style={styles.title}>{movie.title}</Text>
+          <Text style={styles.subTitle}>{movie.original_title}</Text>
+        </View>
+          {isLoading ?  <ActivityIndicator size={35} color="grey" /> : <MovieDetail movieFull={movieFull!} cast={cast}/>}
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
