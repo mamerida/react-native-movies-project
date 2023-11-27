@@ -25,12 +25,12 @@ const DetailScreen = ({route}:Props) => {
           source={{uri}}
           style={styles.posterMovie}
         />
-        <View style={styles.marginContainer}>
+      </View>
+      <View style={styles.marginContainer}>
           <Text style={styles.title}>{movie.title}</Text>
           <Text style={styles.subTitle}>{movie.original_title}</Text>
-        </View>
-          {isLoading ?  <ActivityIndicator size={35} color="grey" /> : <MovieDetail movieFull={movieFull!} cast={cast}/>}
       </View>
+      {isLoading ?  <ActivityIndicator size={35} color="grey" /> : <MovieDetail movieFull={movieFull!} cast={cast}/>}
     </ScrollView>
   )
 }
@@ -38,12 +38,32 @@ const DetailScreen = ({route}:Props) => {
 export default DetailScreen
 
 const styles = StyleSheet.create({
-  imageContainer:{
-    width:'100%',
-    height: screenHeight * 0.7
+  imageContainer: {
+    // backgroundColor: 'red',
+    // overflow: 'hidden',
+    width: '100%',
+    height: screenHeight * 0.7,
+    shadowColor: "#000",
+    shadowOffset: {
+        width: 0,
+        height: 10,
+    },
+    shadowOpacity: 0.24,
+    shadowRadius: 7,
+
+    elevation: 9,
+    borderBottomEndRadius: 25,
+    borderBottomStartRadius: 25
+  },
+  imageBorder: {
+    flex: 1,
+    overflow: 'hidden',
+    borderBottomEndRadius: 25,
+    borderBottomStartRadius: 25
   },
   posterMovie:{
-    flex:1
+    flex:1,
+    height:'100%',
   },
   marginContainer:{
     marginHorizontal:20,
