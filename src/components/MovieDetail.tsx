@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, FlatList } from 'react-native'
 import React from 'react'
 import { MovieFull } from '../interfaces/movieInterface'
 import { Cast } from '../interfaces/creditsInterface'
 import Icon from "react-native-vector-icons/Ionicons"
 import currencyFormatte from "currency-formatter"
+import ActorCard from './ActorCard'
 
 interface Props{
     movieFull: MovieFull,
@@ -34,11 +35,18 @@ const MovieDetail = ({ movieFull, cast}:Props) => {
             <Text style={{color:"black", fontSize:16}}>{currencyFormatte.format(movieFull.budget, {code: "USD"})}</Text>
         </View>
         {/* Casting */}
-        <View style={styles.DetailsContainer}>
-            <Text style={styles.title} >Presupuesto</Text>
-            <Text style={{color:"black", fontSize:16}}>{currencyFormatte.format(movieFull.budget, {code: "USD"})}</Text>
+        <View style={[styles.DetailsContainer,styles.actorContainer]}>
+            <Text style={styles.title} >Cast</Text>
+            <FlatList 
+                style={styles.actorFlatList} 
+                data={cast}
+                keyExtractor={(item)=>item.id.toString()}
+                renderItem={(item: {item: Cast}) => <ActorCard actor={item.item}/>}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+            />
+            {/* // {cast.map((actor, key)=> <ActorCard key={key} actor={actor}/>)} */}
         </View>
-      
     </React.Fragment>
   )
 }
@@ -57,5 +65,12 @@ const styles = StyleSheet.create({
         color:"black",
         fontSize:25,
         fontWeight: 'bold'
+    },
+    actorContainer:{
+        marginBottom:70
+    },
+    actorFlatList:{
+        marginTop:10,
+        height: 70 
     }
 })
